@@ -13,6 +13,7 @@ import Login from './pages/login';
 import ViewUsers from './pages/ViewUsers';
 import ViewBookings from './pages/ViewBookings';
 import ManageMenu from './pages/ManageMenu';
+import ViewMessages from './pages/ViewMessages';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
          <Route path="/users" element={<ViewUsers />} />
         <Route path="/bookings" element={<ViewBookings />} />
         <Route path="/managemenu" element={<ManageMenu />} />
+        <Route path="/viewmessage" element={<ViewMessages />} />
       </Routes>
     </Router>
   );

@@ -1,13 +1,42 @@
 const Booking = require('../models/Booking');
 
+
+const updateBookingStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!["pending", "accepted", "rejected"].includes(status)) {
+    return res.status(400).json({ message: "Invalid status value" });
+  }
+
+  try {
+    const booking = await Booking.findById(id);
+    if (!booking) return res.status(404).json({ message: "Booking not found" });
+
+    booking.status = status;
+    await booking.save();
+
+    res.json({ message: "Status updated", booking });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update status" });
+  }
+};
+
+
 // Get all bookings from MongoDB
 const getAllBookings = async (req, res) => {
   try {
-    const bookings = await Booking.find().populate("user", "username email"); // optional: return only selected user fields
-    res.json(bookings);
-  } catch (error) {
-    console.error("Error fetching bookings:", error);
-    res.status(500).json({ message: "Failed to fetch bookings" });
+    if (req.user.role !== "admin") {
+      return res.status(403).json({ message: "Access denied" });
+    }
+
+    const bookings = await Booking.find().populate("user", "Fname Lname email");
+
+    res.status(200).json(bookings);
+  } catch (err) {
+    console.error("Error fetching bookings:", err);
+    res.status(500).json({ message: "Server error" });
   }
 };
 
@@ -59,4 +88,5 @@ module.exports = {
   getAllBookings,
   createBooking,
   deleteBooking,
+  updateBookingStatus,
 };

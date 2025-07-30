@@ -1,41 +1,71 @@
-// src/pages/ViewBookings.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import AdminPanel from "../components/AdminPanel";
 
 function ViewBookings() {
-  const [bookings, setBookings] = useState([
-    { id: 1, name: "John Doe", date: "2025-07-22", time: "6:00 PM", status: "Pending" },
-    { id: 2, name: "Alice Smith", date: "2025-07-23", time: "7:30 PM", status: "Pending" },
-    { id: 3, name: "Mark Johnson", date: "2025-07-24", time: "8:00 PM", status: "Accepted" },
-    { id: 4, name: "Emily Brown", date: "2025-07-25", time: "5:00 PM", status: "Pending" },
-    { id: 5, name: "David Wilson", date: "2025-07-26", time: "6:30 PM", status: "Pending" },
-    { id: 6, name: "Sarah Lee", date: "2025-07-27", time: "7:00 PM", status: "Pending" },
-  ]);
-
+  const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const itemsPerPage = 5;
 
-  const updateStatus = (id, newStatus) => {
-    setBookings((prev) =>
-      prev.map((booking) =>
-        booking.id === id ? { ...booking, status: newStatus } : booking
-      )
-    );
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const res = await axios.get("http://localhost:5000/api/bookings", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setBookings(res.data);
+      } catch (err) {
+        setError("Failed to fetch bookings");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchBookings();
+  }, []);
+
+  const updateStatus = async (id, newStatus) => {
+    const token = localStorage.getItem("token");
+
+    try {
+      const res = await axios.put(
+        `http://localhost:5000/api/bookings/${id}/status`,
+        { status: newStatus.toLowerCase() }, // ensure lowercase for backend
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      // Update local state after successful DB update
+      setBookings((prev) =>
+        prev.map((booking) =>
+          booking._id === id ? { ...booking, status: res.data.booking.status } : booking
+        )
+      );
+    } catch (err) {
+      console.error("Failed to update booking status:", err);
+      alert("Error updating booking status.");
+    }
   };
 
-  // Pagination logic
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
   const currentBookings = bookings.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(bookings.length / itemsPerPage);
 
-  const nextPage = () => {
-    if (currentPage < totalPages) setCurrentPage((prev) => prev + 1);
-  };
+  const nextPage = () => currentPage < totalPages && setCurrentPage((prev) => prev + 1);
+  const prevPage = () => currentPage > 1 && setCurrentPage((prev) => prev - 1);
 
-  const prevPage = () => {
-    if (currentPage > 1) setCurrentPage((prev) => prev - 1);
-  };
+  if (loading) return <div className="text-center mt-5">Loading bookings...</div>;
+  if (error) return <div className="text-center mt-5 text-danger">{error}</div>;
 
   return (
     <div className="d-flex">
@@ -48,58 +78,60 @@ function ViewBookings() {
               <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Email</th>
                 <th>Date</th>
                 <th>Time</th>
                 <th>Status</th>
-                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {currentBookings.map((booking) => (
-                <tr key={booking.id}>
-                  <td>{booking.id}</td>
-                  <td>{booking.name}</td>
+              {currentBookings.map((booking, index) => (
+                <tr key={booking._id}>
+                  <td>{indexOfFirst + index + 1}</td>
+                  <td>
+                    {booking.user?.Fname || ""} {booking.user?.Lname || ""}
+                  </td>
+                  <td>{booking.user?.email}</td>
                   <td>{booking.date}</td>
                   <td>{booking.time}</td>
                   <td>
-                    <span className={`badge ${booking.status === "Accepted"
-                      ? "bg-success"
-                      : booking.status === "Rejected"
-                        ? "bg-danger"
-                        : "bg-warning text-dark"
-                      }`}>
-                      {booking.status}
-                    </span>
-                  </td>
-                  <td>
-                    <button
-                      className="btn btn-sm btn-success me-2"
-                      onClick={() => updateStatus(booking.id, "Accepted")}
-                      disabled={booking.status !== "Pending"}
+                    <select
+                      className={`form-select ${
+                        booking.status === "Accepted"
+                          ? "bg-success text-white"
+                          : booking.status === "Rejected"
+                          ? "bg-danger text-white"
+                          : "bg-warning text-dark"
+                      }`}
+                      value={booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}
+                      onChange={(e) => updateStatus(booking._id, e.target.value)}
                     >
-                      Accept
-                    </button>
-                    <button
-                      className="btn btn-sm btn-danger"
-                      onClick={() => updateStatus(booking.id, "Rejected")}
-                      disabled={booking.status !== "Pending"}
-                    >
-                      Reject
-                    </button>
+                      <option value="Pending">Pending</option>
+                      <option value="Accepted">Accepted</option>
+                      <option value="Rejected">Rejected</option>
+                    </select>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-        {/* Pagination Controls */}
         <div className="d-flex justify-content-center mt-3">
-          <button className="btn btn-outline-secondary me-2" onClick={prevPage} disabled={currentPage === 1}>
+          <button
+            className="btn btn-outline-secondary me-2"
+            onClick={prevPage}
+            disabled={currentPage === 1}
+          >
             Prev
           </button>
-          <span className="align-self-center">Page {currentPage} of {totalPages}</span>
-          <button className="btn btn-outline-secondary ms-2" onClick={nextPage} disabled={currentPage === totalPages}>
+          <span className="align-self-center">
+            Page {currentPage} of {totalPages}
+          </span>
+          <button
+            className="btn btn-outline-secondary ms-2"
+            onClick={nextPage}
+            disabled={currentPage === totalPages}
+          >
             Next
           </button>
         </div>

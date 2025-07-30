@@ -1,11 +1,13 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // to serve images
 
 
 // Import your routes
@@ -21,6 +23,9 @@ app.use("/api/bookings", bookingRoutes);
 
 const authRoutes = require("./src/routes/auth");
 app.use("/api/auth", authRoutes);
+
+const contactRoutes = require("./src/routes/contactRoutes");
+app.use("/api/contact", contactRoutes);
 
 const protect = require("./src/middleware/authMiddleware");
 app.get("/api/protected", protect, (req, res) => {

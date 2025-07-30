@@ -38,11 +38,13 @@ function Home() {
       image: events,
     },
   ];
+
+    
   return (
     <>
       <Navbar />
 
-      {/* Hero Section */}
+        {/* Hero Section */}
       <section
         className="hero-section d-flex align-items-center justify-content-center text-center"
         style={{
@@ -54,23 +56,25 @@ function Home() {
         }}
       >
         <div className="container">
-          <h1 className="display-4 fw-bold " style={{ fontSize: "5rem" }}>
+          <h1 className="display-4 fw-bold" style={{ fontSize: "5rem" }}>
             Best food for your taste
           </h1>
           <p className="lead mt-3">
-            Discover delectable cuisine and unforgettable moments in our
-            welcoming, culinary haven.
+            Discover delectable cuisine and unforgettable moments in our welcoming,
+            culinary haven.
           </p>
           <div className="mt-4 d-flex justify-content-center gap-3">
-            <a href="#" className="btn btn-danger px-4 py-2 rounded-pill">
+            <a href="/book" className="btn btn-danger px-4 py-2 rounded-pill">
               Book A Table
             </a>
-            <a href="#" className="btn btn-outline-dark px-4 py-2 rounded-pill">
+            <a href="/menu" className="btn btn-outline-dark px-4 py-2 rounded-pill">
               Explore Menu
             </a>
           </div>
         </div>
       </section>
+
+     
 
       {/* Browse Our Menu Section */}
       <section className="menu-section py-5  text-center">

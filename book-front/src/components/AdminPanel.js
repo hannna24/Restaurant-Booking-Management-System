@@ -21,6 +21,11 @@ function AdminPanel() {
             </Link>
           </li>
           <li className="nav-item mb-2">
+            <Link className="nav-link text-white" to="/viewmessage">
+              View Messages
+            </Link>
+          </li>
+          <li className="nav-item mb-2">
             <Link className="nav-link text-white" to="/managemenu">
               Manage Menu
             </Link>

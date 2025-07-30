@@ -5,49 +5,46 @@ import Footer from "../components/Footer";
 
 function BookingPage() {
   const storedUser = JSON.parse(localStorage.getItem("user")); // Full user object
-  const userId = storedUser?.id; // Extract _id from the user object
+  const token = localStorage.getItem("token"); // Get token
+  const userId = storedUser?.id || storedUser?._id; // Extract _id or id
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  // const storedUser = JSON.parse(localStorage.getItem("user"));
-  // const userId = storedUser?.id;
+    const bookingData = {
+      date: e.target.date.value,
+      time: e.target.time.value,
+      guests: Number(e.target.persons.value),
+      phone: e.target.phone.value,
+      user: userId,
+    };
 
-  const bookingData = {
-    date: e.target.date.value,
-    time: e.target.time.value,
-    guests: Number(e.target.persons.value),
-    phone: e.target.phone.value,
-    user: userId, // Pass only user ID
-  };
+    try {
+      console.log("Booking data being sent:", bookingData);
 
-  try {
-    console.log("Booking data being sent:", bookingData);
+      const response = await fetch("http://localhost:5000/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Include token in Authorization header
+        },
+        body: JSON.stringify(bookingData),
+      });
 
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to submit booking");
+      }
 
-    const response = await fetch("http://localhost:5000/api/bookings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(bookingData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || "Failed to submit booking");
+      const data = await response.json();
+      console.log("Booking successful:", data);
+      alert("Booking submitted successfully!");
+      e.target.reset();
+    } catch (err) {
+      console.error("Booking failed:", err.message);
+      alert("Booking failed: " + err.message);
     }
-
-    const data = await response.json();
-    console.log("Booking successful:", data);
-    alert("Booking submitted successfully!");
-    e.target.reset();
-  } catch (err) {
-    console.error("Booking failed:", err.message);
-    alert("Booking failed: " + err.message);
-  }
-};
-
+  };
 
   return (
     <>

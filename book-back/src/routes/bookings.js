@@ -5,11 +5,16 @@ const {
   getAllBookings,
   createBooking,
   deleteBooking,
+  updateBookingStatus,
 } = require("../controllers/bookingController");
 
+const protect = require("../middleware/authMiddleware"); // Ensure the path matches your actual folder name
+
 // Routes
-router.get("/", getAllBookings);
-router.post("/", createBooking);
-router.delete("/:id", deleteBooking);
+router.get("/", protect, getAllBookings);
+router.post("/", protect, createBooking);
+router.delete("/:id", protect, deleteBooking);
+router.put("/:id/status", protect, updateBookingStatus);
+
 
 module.exports = router;
