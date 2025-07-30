@@ -4,20 +4,43 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 function BookingPage() {
-  const handleSubmit = (e) => {
+  const userId = localStorage.getItem("userId"); // assuming you store it there
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const bookingData = {
       date: e.target.date.value,
       time: e.target.time.value,
-      name: e.target.name.value,
+      guests: Number(e.target.persons.value),
       phone: e.target.phone.value,
-      persons: e.target.persons.value,
+      user: userId,
     };
 
-    console.log("Booking Data:", bookingData);
-    alert("Booking submitted successfully!");
+    try {
+      const response = await fetch("http://localhost:5000/api/bookings", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookingData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to submit booking");
+      }
+
+      const data = await response.json();
+      console.log("Booking successful:", data);
+      alert("Booking submitted successfully!");
+      e.target.reset(); // Clear the form
+    } catch (err) {
+      console.error("Booking failed:", err.message);
+      alert("Booking failed: " + err.message);
+    }
   };
+
 
   return (
     <>

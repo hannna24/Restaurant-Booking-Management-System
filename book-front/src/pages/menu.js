@@ -22,14 +22,14 @@ import postmates from "../assets/postmates.png";
 
 
 const menuItems = [
-  { title: "Fried Eggs", price: "$9.99", image: egg },
-  { title: "Hawaiian Pizza", price: "$16.99", image: pizza },
-  { title: "Martini Cocktail", price: "$7.25", image: cocktail },
-  { title: "Butterscotch Cake", price: "$20.09", image: cake },
-  { title: "Mint Lemonade", price: "$5.89", image: lemonade },
-  { title: "Chocolate Icecream", price: "$10.65", image: icecream },
-  { title: "Cheese Burger", price: "$12.55", image: cheeseburger },
-  { title: "Classic Waffles", price: "$12.99", image: waffles },
+  { title: "Fried Eggs",category:"Breakfast" ,price: "$9.99", image: egg },
+  { title: "Hawaiian Pizza",category:"Main", price: "$16.99", image: pizza },
+  { title: "Martini Cocktail", category:"Drinks", price: "$7.25", image: cocktail },
+  { title: "Butterscotch Cake",category:"Desserts", price: "$20.09", image: cake },
+  { title: "Mint Lemonade", category:"Drinks",price: "$5.89", image: lemonade },
+  { title: "Chocolate Icecream", category:"Desserts",price: "$10.65", image: icecream },
+  { title: "Cheese Burger",category:"Main", price: "$12.55", image: cheeseburger },
+  { title: "Classic Waffles",category:"Desserts", price: "$12.99", image: waffles },
 ];
 
 

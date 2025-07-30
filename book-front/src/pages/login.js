@@ -1,15 +1,37 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import Maskgroup4 from '../assets/image110.png';
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Maskgroup4 from "../assets/image110.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add login logic here
-    console.log("Login submitted", { email, password });
+    setErrorMsg("");
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/users/login", {
+        email,
+        password,
+      });
+
+      const { token, user } = response.data;
+
+      // Save token & user data in localStorage
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+
+      // Redirect to homepage or dashboard
+      navigate("/");
+
+    } catch (error) {
+      console.error(error);
+      setErrorMsg("Invalid email or password.");
+    }
   };
 
   return (
@@ -48,6 +70,7 @@ export default function Login() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
+          {errorMsg && <div className="text-danger text-center mb-2">{errorMsg}</div>}
           <button className="btn btn-primary w-100 mb-3 rounded-pill" type="submit">
             Login
           </button>
