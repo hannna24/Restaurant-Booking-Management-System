@@ -8,7 +8,7 @@ const {
   updateBookingStatus,
 } = require("../controllers/bookingController");
 
-const protect = require("../middleware/authMiddleware"); // Ensure the path matches your actual folder name
+const protect = require("../middleware/authMiddleware"); 
 
 // Routes
 router.get("/", protect, getAllBookings);

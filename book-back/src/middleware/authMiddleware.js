@@ -3,14 +3,14 @@ const jwt = require("jsonwebtoken");
 const authMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
 
-  // Check if header is present and starts with "Bearer"
+ 
   if (authHeader && authHeader.startsWith("Bearer ")) {
-    const token = authHeader.split(" ")[1]; // Extract token from "Bearer <token>"
+    const token = authHeader.split(" ")[1]; 
 
     try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Verify token
-      req.user = decoded; // Attach user payload to request
-      next(); // Proceed to the next middleware/route
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+      req.user = decoded; 
+      next(); 
     } catch (err) {
       return res.status(401).json({ message: "Invalid or expired token" });
     }

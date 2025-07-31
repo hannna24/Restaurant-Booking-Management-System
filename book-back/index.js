@@ -35,7 +35,7 @@ app.get("/api/protected", protect, (req, res) => {
 
 
 const errorHandler = require("./src/middleware/errorMiddleware");
-app.use(errorHandler); // this goes after all app.use or app.get/post
+app.use(errorHandler);
 
 
 // Root route

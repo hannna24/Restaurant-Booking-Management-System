@@ -2,10 +2,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 
-
-// Admin usernames (you can make this dynamic later)
-const adminUsernames = ["admin"]; // add any usernames you want to be admins
-
 const registerUser = (req, res) => {
   const { username, password } = req.body;
 
@@ -24,7 +20,7 @@ const registerUser = (req, res) => {
     id: Date.now(),
     username,
     password: hashedPassword,
-    isAdmin, // ✅ add isAdmin flag
+    isAdmin, 
   };
   users.push(newUser);
 
@@ -40,14 +36,14 @@ const loginUser = (req, res) => {
   const isMatch = bcrypt.compareSync(password, user.password);
   if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-  // ✅ Include isAdmin in JWT token
+  // Include isAdmin in JWT token
   const token = jwt.sign(
     { id: user.id, isAdmin: user.isAdmin },
     "your_jwt_secret",
     { expiresIn: "1h" }
   );
 
-  // ✅ Also send isAdmin in the response
+  // Also send isAdmin in the response
   res.json({
     token,
     user: {

@@ -42,7 +42,7 @@ export default function BlogArticlePage() {
         <h4 className="fw-bold" style={{
                   fontFamily: '"EB Garamond", serif',
                   fontOpticalSizing: "auto",
-                  // fontWeight: "700", // or 700 or 'bold'
+                  
                   fontStyle: "normal",
                   fontSize: "4.2rem",
                 }}>

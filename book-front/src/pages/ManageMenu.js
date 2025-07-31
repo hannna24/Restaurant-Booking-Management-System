@@ -8,7 +8,7 @@ function ManageMenu() {
     title: "",
     category: "",
     price: "",
-    imageUrl: "", // URL string
+    imageUrl: "", 
   });
   const [editId, setEditId] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);

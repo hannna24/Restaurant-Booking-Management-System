@@ -4,9 +4,9 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
 function BookingPage() {
-  const storedUser = JSON.parse(localStorage.getItem("user")); // Full user object
-  const token = localStorage.getItem("token"); // Get token
-  const userId = storedUser?.id || storedUser?._id; // Extract _id or id
+  const storedUser = JSON.parse(localStorage.getItem("user")); 
+  const token = localStorage.getItem("token"); 
+  const userId = storedUser?.id || storedUser?._id; 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,7 +26,7 @@ function BookingPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Include token in Authorization header
+          Authorization: `Bearer ${token}`, 
         },
         body: JSON.stringify(bookingData),
       });

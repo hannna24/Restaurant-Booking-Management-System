@@ -39,11 +39,11 @@ function Footer() {
     <div>
       <h5 className="fw-bold mb-5" >Pages</h5>
       <ul className="list-unstyled">
-        <li className="mb-5"><a href="#" className="text-white text-decoration-none">Home</a></li>
-        <li className="mb-5"><a href="#" className="text-white text-decoration-none">Menu</a></li>
-        <li className="mb-5"><a href="#" className="text-white text-decoration-none">About Us</a></li>
-        <li className="mb-5"><a href="#" className="text-white text-decoration-none">Contact</a></li>
-        <li className="mb-5"><a href="#" className="text-white text-decoration-none">Blog</a></li>
+        <li className="mb-5"><a href="/" className="text-white text-decoration-none">Home</a></li>
+        <li className="mb-5"><a href="/menu" className="text-white text-decoration-none">Menu</a></li>
+        <li className="mb-5"><a href="/about" className="text-white text-decoration-none">About Us</a></li>
+        <li className="mb-5"><a href="/contact" className="text-white text-decoration-none">Contact</a></li>
+        <li className="mb-5"><a href="/blog" className="text-white text-decoration-none">Blog</a></li>
         <li className="mb-5"><a href="#" className="text-white text-decoration-none">FAQs</a></li>
       </ul>
     </div>
@@ -52,8 +52,8 @@ function Footer() {
     <div className="col-6">
       <h5 className="fw-bold mb-5">Utility Pages</h5>
       <ul className="list-unstyled col-6">
-        <li className="mb-5"><a href="#" className="text-white text-decoration-none">Login</a></li>
-        <li className="mb-5"><a href="#" className="text-white text-decoration-none">Register</a></li>
+        <li className="mb-5"><a href="/login" className="text-white text-decoration-none">Login</a></li>
+        <li className="mb-5"><a href="/register" className="text-white text-decoration-none">Register</a></li>
         <li className="mb-5"><a href="#" className="text-white text-decoration-none">Forgot Password</a></li>
         <li className="mb-5"><a href="#" className="text-white text-decoration-none"> Not Found</a></li>
         <li className="mb-5"><a href="#" className="text-white text-decoration-none">Terms of Use</a></li>

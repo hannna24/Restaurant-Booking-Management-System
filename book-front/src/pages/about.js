@@ -56,7 +56,7 @@ function about() {
                 style={{
                   fontFamily: '"EB Garamond", serif',
                   fontOpticalSizing: "auto",
-                  fontWeight: "bold", // or 700 or 'bold'
+                  fontWeight: "bold",
                   fontStyle: "normal",
                   fontSize: "3.5rem",
                 }}
@@ -88,7 +88,7 @@ function about() {
         >
           <video
             className="w-100 object-fit-cover"
-            style={{ height: "90vh" }} // or adjust to "90vh", "100vh", etc.
+            style={{ height: "90vh" }} 
             src={video}
             autoPlay
             muted
@@ -183,7 +183,7 @@ function about() {
                 style={{
                   fontFamily: '"EB Garamond", serif',
                   fontOpticalSizing: "auto",
-                  fontWeight: "bold", // or 700 or 'bold'
+                  fontWeight: "bold", 
                   fontStyle: "normal",
                   fontSize: "3.5rem",
                 }}

@@ -17,7 +17,7 @@ function Navbar() {
     setIsLoggedIn(false);
     navigate("/login");
   };
-const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div className="custom-navbar">
       {/* Top Bar */}
@@ -73,7 +73,6 @@ const user = JSON.parse(localStorage.getItem("user"));
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          
           <div
             className="collapse navbar-collapse justify-content-end"
             id="navbarNav"
@@ -130,21 +129,13 @@ const user = JSON.parse(localStorage.getItem("user"));
                 >
                   Register
                 </Link>
-                
               </>
-
-              
             )}
-{user?.role === "admin" && (
-  <Link
-    to="/users"
-    className="btn btn-dark rounded-pill ms-2"
-  >
-    Admin Panel
-  </Link>
-)}
-
-
+            {user?.role === "admin" && (
+              <Link to="/users" className="btn btn-dark rounded-pill ms-2">
+                Admin Panel
+              </Link>
+            )}
           </div>
         </div>
       </nav>

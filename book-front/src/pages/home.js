@@ -18,6 +18,7 @@ import Fried from "../assets/Fried.png";
 import Cupcakes from "../assets/Cupcakes.png";
 import Pizza1 from "../assets/Pizza1.png";
 import Footer from "../components/Footer";
+import { Link } from "react-router-dom";
 
 function Home() {
   const services = [
@@ -39,12 +40,11 @@ function Home() {
     },
   ];
 
-    
   return (
     <>
       <Navbar />
 
-        {/* Hero Section */}
+      {/* Hero Section */}
       <section
         className="hero-section d-flex align-items-center justify-content-center text-center"
         style={{
@@ -60,21 +60,22 @@ function Home() {
             Best food for your taste
           </h1>
           <p className="lead mt-3">
-            Discover delectable cuisine and unforgettable moments in our welcoming,
-            culinary haven.
+            Discover delectable cuisine and unforgettable moments in our
+            welcoming, culinary haven.
           </p>
           <div className="mt-4 d-flex justify-content-center gap-3">
             <a href="/book" className="btn btn-danger px-4 py-2 rounded-pill">
               Book A Table
             </a>
-            <a href="/menu" className="btn btn-outline-dark px-4 py-2 rounded-pill">
+            <a
+              href="/menu"
+              className="btn btn-outline-dark px-4 py-2 rounded-pill"
+            >
               Explore Menu
             </a>
           </div>
         </div>
       </section>
-
-     
 
       {/* Browse Our Menu Section */}
       <section className="menu-section py-5  text-center">
@@ -106,7 +107,7 @@ function Home() {
                       certainty and pride for our life.
                     </p>
                     <a
-                      href="#"
+                      href="/menu"
                       className="btn btn-link text-danger fw-semibold"
                     >
                       Explore Menu
@@ -127,7 +128,7 @@ function Home() {
                 src={bgImage2}
                 alt="Healthy Food"
                 className="rounded shadow"
-                // style={{ height: "500px", width: "00px" }}
+               
               />
               <div
                 className="bg-dark text-white p-3 rounded position-absolute"
@@ -152,7 +153,7 @@ function Home() {
                 style={{
                   fontFamily: '"EB Garamond", serif',
                   fontOpticalSizing: "auto",
-                  fontWeight: "bold", // or 700 or 'bold'
+                  fontWeight: "bold", 
                   fontStyle: "normal",
                   fontSize: "3.5rem",
                 }}
@@ -168,12 +169,13 @@ function Home() {
                 Rooted in city’s rich culinary culture, we aim to honor our
                 local roots while infusing a global palate.
               </p>
-              <button
+              <Link
                 className="btn btn-outline-dark border-2 mt-2 rounded-pill"
+                to="/about"
                 style={{ fontWeight: "bold", fontSize: "1.5rem" }}
               >
                 More About Us
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -184,7 +186,7 @@ function Home() {
           style={{
             fontFamily: '"EB Garamond", serif',
             fontOpticalSizing: "auto",
-            fontWeight: "bold", // or 700 or 'bold'
+            fontWeight: "bold",
             fontStyle: "normal",
             fontSize: "3.5rem",
           }}
@@ -251,7 +253,7 @@ function Home() {
                 style={{
                   fontFamily: '"EB Garamond", serif',
                   fontOpticalSizing: "auto",
-                  fontWeight: "bold", // or 700 or 'bold'
+                  fontWeight: "bold", 
                   fontStyle: "normal",
                   fontSize: "3.5rem",
                 }}
@@ -289,7 +291,7 @@ function Home() {
             style={{
               fontFamily: '"EB Garamond", serif',
               fontOpticalSizing: "auto",
-              fontWeight: "bold", // or 700 or 'bold'
+              fontWeight: "bold", 
               fontStyle: "normal",
               fontSize: "3.5rem",
             }}
@@ -362,9 +364,9 @@ function Home() {
         <div className="container">
           <div className="d-flex justify-content-between align-items-center mb-4">
             <h2 className="fw-bold">Our Blog & Articles</h2>
-            <button className="btn btn-danger rounded-pill px-4">
+            <Link to="/blog" className="btn btn-danger rounded-pill px-4">
               Read All Articles
-            </button>
+            </Link>
           </div>
 
           <div className="row g-4">
@@ -431,8 +433,7 @@ function Home() {
           </div>
         </div>
       </section>
- <Footer />
-    
+      <Footer />
     </>
   );
 }

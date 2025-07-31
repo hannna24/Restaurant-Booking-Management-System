@@ -23,7 +23,7 @@ export default function Register() {
     try {
       const res = await axios.post("http://localhost:5000/api/users/register", formData);
       alert("Registered successfully!");
-      console.log(res.data); // Optional: You can save token here if returned
+      console.log(res.data);
       navigate("/login");
     } catch (err) {
       alert("Registration failed!");
