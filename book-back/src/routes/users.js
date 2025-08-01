@@ -6,7 +6,10 @@ const {
   registerUser,
   loginUser,
   deleteUser,
+  updateUserProfile,
 } = require("../controllers/userController");
+
+const protect = require("../middleware/authMiddleware"); 
 
 // Route to register a new user
 router.post("/register", registerUser);
@@ -19,5 +22,8 @@ router.get("/", getAllUsers);
 
 // Route to delete a user by ID
 router.delete("/:id", deleteUser);
+
+// Route to update user's own profile
+router.put("/update-profile", protect, updateUserProfile);
 
 module.exports = router;

@@ -14,6 +14,8 @@ import ViewUsers from './pages/ViewUsers';
 import ViewBookings from './pages/ViewBookings';
 import ManageMenu from './pages/ManageMenu';
 import ViewMessages from './pages/ViewMessages';
+import MyBookings from "./pages/Mybookingspage";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
         <Route path="/bookings" element={<ViewBookings />} />
         <Route path="/managemenu" element={<ManageMenu />} />
         <Route path="/viewmessage" element={<ViewMessages />} />
+        <Route path="/mybookings" element={<MyBookings />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </Router>
   );

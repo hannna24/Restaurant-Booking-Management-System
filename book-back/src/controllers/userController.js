@@ -93,9 +93,38 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const updateUserProfile = async (req, res) => {
+  const userId = req.user.userId;
+  const { Fname, Lname, phone } = req.body;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    user.Fname = Fname || user.Fname;
+    user.Lname = Lname || user.Lname;
+    user.phone = phone || user.phone;
+
+    const updatedUser = await user.save();
+
+    res.json({
+      _id: updatedUser._id,
+      Fname: updatedUser.Fname,
+      Lname: updatedUser.Lname,
+      email: updatedUser.email,
+      phone: updatedUser.phone,
+      role: updatedUser.role,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Update failed", error: err.message });
+  }
+};
+
+
 module.exports = {
   registerUser,
   loginUser,
   getAllUsers,
   deleteUser,
+  updateUserProfile,
 };

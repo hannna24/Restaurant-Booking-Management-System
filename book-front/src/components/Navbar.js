@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GiBowlOfRice } from "react-icons/gi";
+import { FaUserCircle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
@@ -17,7 +18,9 @@ function Navbar() {
     setIsLoggedIn(false);
     navigate("/login");
   };
+
   const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <div className="custom-navbar">
       {/* Top Bar */}
@@ -74,7 +77,7 @@ function Navbar() {
           </button>
 
           <div
-            className="collapse navbar-collapse justify-content-end"
+            className="collapse navbar-collapse justify-content-end align-items-center"
             id="navbarNav"
           >
             <ul className="navbar-nav me-3">
@@ -104,9 +107,27 @@ function Navbar() {
                 </Link>
               </li>
             </ul>
+
             <Link className="btn btn-outline-dark rounded-pill me-2" to="/book">
               Book A Table
             </Link>
+
+            {/* My Bookings for regular users */}
+            {isLoggedIn && user?.role === "user" && (
+              <Link
+                className="btn btn-outline-warning rounded-pill me-2"
+                to="/mybookings"
+              >
+                My Bookings
+              </Link>
+            )}
+
+            {/* Profile Icon */}
+            {isLoggedIn && (
+              <Link to="/profile" className="me-3">
+                <FaUserCircle size={28} className="text-dark hover-opacity" />
+              </Link>
+            )}
 
             {isLoggedIn ? (
               <button
@@ -131,6 +152,7 @@ function Navbar() {
                 </Link>
               </>
             )}
+
             {user?.role === "admin" && (
               <Link to="/users" className="btn btn-dark rounded-pill ms-2">
                 Admin Panel

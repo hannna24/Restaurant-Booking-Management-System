@@ -1,5 +1,17 @@
 const Booking = require('../models/Booking');
 
+const getUserBookings = async (req, res) => {
+  try {
+    const userId = req.user.userId; 
+    console.log("Fetching bookings for user:", userId);
+    const bookings = await Booking.find({ user: userId });
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching user bookings:", error);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
 
 const updateBookingStatus = async (req, res) => {
   const { id } = req.params;
@@ -89,4 +101,5 @@ module.exports = {
   createBooking,
   deleteBooking,
   updateBookingStatus,
+  getUserBookings,
 };
